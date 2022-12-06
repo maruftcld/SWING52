@@ -12,6 +12,7 @@ import com.swing.util.DBCon;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,14 @@ public class EditEmployeeForm extends javax.swing.JFrame {
     public EditEmployeeForm() {
         initComponents();
         employeeDAO = new EmployeeDAO();
+        List<String> cons = new ArrayList<>();
+        cons.add("BD");
+        cons.add("USA");
+        cons.add("UK");
+        cons.add("UAE");
+        for (String con : cons) {
+            boxCountry.addItem(con);
+        }
     }
     
     public void EditData(Employee employee){
@@ -40,7 +49,25 @@ public class EditEmployeeForm extends javax.swing.JFrame {
         empAge.setText(String.valueOf(employee.getAge()));
         empCourse.setText(employee.getCourse());
         empSalary.setText(String.valueOf(employee.getSalary()));
-        
+        if(employee.getGender().equals("Male")){
+            radioMale.setSelected(true);
+        }else{
+            radioFemale.setSelected(true);
+        }
+        boxCountry.setSelectedItem(employee.getCountry());
+        String edu = employee.getEducation();
+        if(edu.contains("SSC")){
+            SSC.setSelected(true);
+        }
+        if(edu.contains("HSC")){
+            HSC.setSelected(true);
+        }
+        if(edu.contains("BSC")){
+            BSC.setSelected(true);
+        }
+        if(edu.contains("MSC")){
+            MSC.setSelected(true);
+        }
     }
 
     /**
@@ -52,6 +79,7 @@ public class EditEmployeeForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        groupGender = new javax.swing.ButtonGroup();
         createLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         empName = new javax.swing.JTextField();
@@ -59,16 +87,23 @@ public class EditEmployeeForm extends javax.swing.JFrame {
         empAge = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         empCourse = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        empAddress = new javax.swing.JTextArea();
         btnUpdate = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         empSalary = new javax.swing.JTextField();
         empId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        radioMale = new javax.swing.JRadioButton();
+        radioFemale = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        boxCountry = new javax.swing.JComboBox();
+        SSC = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
+        HSC = new javax.swing.JCheckBox();
+        BSC = new javax.swing.JCheckBox();
+        MSC = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         createLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         createLabel.setForeground(new java.awt.Color(51, 51, 255));
@@ -79,12 +114,6 @@ public class EditEmployeeForm extends javax.swing.JFrame {
         jLabel2.setText("Age");
 
         jLabel3.setText("Course");
-
-        jLabel5.setText("Address");
-
-        empAddress.setColumns(20);
-        empAddress.setRows(5);
-        jScrollPane1.setViewportView(empAddress);
 
         btnUpdate.setText("Update");
         btnUpdate.setToolTipText("");
@@ -101,13 +130,33 @@ public class EditEmployeeForm extends javax.swing.JFrame {
 
         jLabel4.setText("ID");
 
+        jLabel7.setText("Gender");
+
+        groupGender.add(radioMale);
+        radioMale.setText("Male");
+
+        groupGender.add(radioFemale);
+        radioFemale.setText("Female");
+
+        jLabel5.setText("Country");
+
+        SSC.setText("SSC");
+
+        jLabel8.setText("Education");
+
+        HSC.setText("HSC");
+
+        BSC.setText("BSC");
+
+        MSC.setText("MSC");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -116,10 +165,6 @@ public class EditEmployeeForm extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(empCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(empSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,14 +175,37 @@ public class EditEmployeeForm extends javax.swing.JFrame {
                             .addComponent(empName, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                             .addComponent(empId)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(4, 4, 4)
+                                    .addComponent(jLabel7))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnUpdate)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1))))
-                .addContainerGap(109, Short.MAX_VALUE))
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(radioMale)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(radioFemale))
+                                    .addComponent(empSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                    .addComponent(boxCountry, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnUpdate)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(SSC)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(HSC)))
+                                .addGap(29, 29, 29)
+                                .addComponent(BSC)
+                                .addGap(18, 18, 18)
+                                .addComponent(MSC)))))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,13 +232,25 @@ public class EditEmployeeForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(empSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(radioMale)
+                    .addComponent(radioFemale))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(boxCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(SSC)
+                    .addComponent(HSC)
+                    .addComponent(BSC)
+                    .addComponent(MSC))
+                .addGap(139, 139, 139)
                 .addComponent(btnUpdate)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,20 +321,28 @@ public class EditEmployeeForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox BSC;
+    private javax.swing.JCheckBox HSC;
+    private javax.swing.JCheckBox MSC;
+    private javax.swing.JCheckBox SSC;
+    private javax.swing.JComboBox boxCountry;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel createLabel;
-    private javax.swing.JTextArea empAddress;
     private javax.swing.JTextField empAge;
     private javax.swing.JTextField empCourse;
     private javax.swing.JTextField empId;
     private javax.swing.JTextField empName;
     private javax.swing.JTextField empSalary;
+    private javax.swing.ButtonGroup groupGender;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JRadioButton radioFemale;
+    private javax.swing.JRadioButton radioMale;
     // End of variables declaration//GEN-END:variables
 }

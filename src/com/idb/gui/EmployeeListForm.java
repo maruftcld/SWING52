@@ -141,12 +141,11 @@ public class EmployeeListForm extends javax.swing.JFrame {
         e.setId(Integer.valueOf(employeeTable.getValueAt(selectedRow, 0).toString()));
         e.setName(employeeTable.getValueAt(selectedRow, 1).toString());
         e.setAge(Integer.valueOf(employeeTable.getValueAt(selectedRow, 2).toString()));
-        e.setCourse(employeeTable.getValueAt(selectedRow, 3).toString());
-        e.setSalary(Double.valueOf(employeeTable.getValueAt(selectedRow, 4).toString()));
-        
+        e.setGender(employeeTable.getValueAt(selectedRow, 3).toString());
+        e.setCountry(employeeTable.getValueAt(selectedRow, 4).toString());
+        e.setEducation(employeeTable.getValueAt(selectedRow, 5).toString());
         EditEmployeeForm editEmp = new EditEmployeeForm();
         editEmp.EditData(e);
-        
         editEmp.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -168,14 +167,15 @@ public class EmployeeListForm extends javax.swing.JFrame {
 
     private void getAll() {
         List<Employee> empList = employeeDAO.getAll();
-        String[] columns = {"Id", "Name", "Age", "Course", "Salary"};
+        String[] columns = {"Id", "Name", "Age", "Gender", "Country", "Education"};
         String[][] rows = new String[empList.size()][columns.length];
         for (int i = 0; i < empList.size(); i++) {
             rows[i][0] = String.valueOf(empList.get(i).getId());
             rows[i][1] = empList.get(i).getName();
             rows[i][2] = String.valueOf(empList.get(i).getAge());
-            rows[i][3] = empList.get(i).getCourse();
-            rows[i][4] = String.valueOf(empList.get(i).getSalary());
+            rows[i][3] = empList.get(i).getGender();
+            rows[i][4] = String.valueOf(empList.get(i).getCountry());
+            rows[i][5] = String.valueOf(empList.get(i).getEducation());
         }
         model = new DefaultTableModel(rows, columns);
         employeeTable.setModel(model);

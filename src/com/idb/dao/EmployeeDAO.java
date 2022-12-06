@@ -23,13 +23,14 @@ public class EmployeeDAO implements ICommonDAO<Employee>{
     public int save(Employee employee) {
         int status = 0;
         
-        String sql = "insert into employee (name, age, course, salary) values (?, ?, ?, ?)";
+        String sql = "insert into employee (name, age, course, salary, education) values (?, ?, ?, ?, ?)";
         try {
             PreparedStatement psmt = con.prepareStatement(sql);
             psmt.setString(1, employee.getName());
             psmt.setInt(2, employee.getAge());
             psmt.setString(3, employee.getCourse());
             psmt.setDouble(4, employee.getSalary());
+            psmt.setString(5, employee.getEducation());
             status = psmt.executeUpdate();
         } catch (SQLException ex) {
         }
@@ -50,6 +51,9 @@ public class EmployeeDAO implements ICommonDAO<Employee>{
                 e.setAge(rs.getInt("age"));
                 e.setCourse(rs.getString("course"));
                 e.setSalary(rs.getDouble("salary"));
+                e.setGender(rs.getString("gender"));
+                e.setCountry(rs.getString("country"));
+                e.setEducation(rs.getString("education"));
                 empList.add(e);
             }
         } catch (Exception e) {
